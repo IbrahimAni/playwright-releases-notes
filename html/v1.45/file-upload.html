@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>File Upload</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body
+    class="flex flex-col items-center justify-center min-h-screen"
+    style="background-color: #f3f4f6"
+  >
+    <div
+      class="mb-4 text-4xl font-bold text-gray-700"
+    >
+      File Upload
+    </div>
+    <input
+      type="file"
+      id="file-input"
+      data-testid="file-input"
+      class="mb-4 px-4 py-2 border border-gray-300 rounded"
+    />
+    <div
+      id="file-name"
+      data-testid="file-name"
+      class="text-xl text-green-500"
+    ></div>
+
+    <script>
+      const fileInput = document.getElementById('file-input');
+      const fileNameDisplay = document.getElementById('file-name');
+
+      fileInput.addEventListener('change', () => {
+        const file = fileInput.files[0];
+        if (file) {
+          fileNameDisplay.textContent = `File uploaded: ${file.name}`;
+        } else {
+          fileNameDisplay.textContent = '';
+        }
+      });
+    </script>
+  </body>
+</html>

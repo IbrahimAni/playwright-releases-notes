@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Playwright v1.45 Release</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      #end-message {
+        display: none;
+      }
+      #start-button {
+        background-color: #fff;
+        color: #071952;
+        font-weight: bolder;
+      }
+    </style>
+  </head>
+  <body
+    class="flex flex-col items-center justify-center min-h-screen"
+    style="background-color: #071952"
+  >
+    <div
+      id="current-time"
+      data-testid="current-time"
+      class="text-6xl font-bold text-white mb-4"
+    ></div>
+    <button
+      id="start-button"
+      data-testid="start-button"
+      class="px-4 py-2 rounded"
+    >
+      Start
+    </button>
+    <div
+      id="end-message"
+      data-testid="end-message"
+      class="text-4xl font-bold text-green-500 mt-4"
+    >
+      You have been logged out due to inactivity.
+    </div>
+    <script>
+      const renderTime = () => {
+        const options = { hour12: true };
+        const timeString = new Date().toLocaleTimeString("en-US", options);
+        document.getElementById("current-time").textContent = timeString;
+      };
+      setInterval(renderTime, 1000);
+
+      const startButton = document.getElementById("start-button");
+      const endMessage = document.getElementById("end-message");
+
+      const startCountdown = () => {
+        const startTime = new Date().getTime();
+        const inactivityTime = 5 * 60 * 1000; // 5 minutes in milliseconds
+
+        const checkInactivity = () => {
+          const currentTime = new Date().getTime();
+          if (currentTime - startTime >= inactivityTime) {
+            endMessage.style.display = "block";
+          }
+        };
+
+        setTimeout(checkInactivity, inactivityTime);
+      };
+
+      startButton.addEventListener("click", startCountdown);
+    </script>
+  </body>
+</html>
