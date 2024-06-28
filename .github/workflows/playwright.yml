@@ -17,12 +17,6 @@ jobs:
       run: npm ci
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
-
-    - name: Serve HTML files
-      run: npx http-server ./html -p 8080 &
-      env:
-        CI: true
-
     - name: Run Playwright tests
       run: npx playwright test
     - uses: actions/upload-artifact@v4
